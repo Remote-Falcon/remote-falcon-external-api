@@ -48,7 +48,7 @@ public class AuthUtil {
     }
   }
 
-  private String getTokenFromRequest(HttpServletRequest httpServletRequest) {
+  public String getTokenFromRequest(HttpServletRequest httpServletRequest) {
     String token = "";
     final String authorization = httpServletRequest.getHeader("Authorization");
     if (authorization != null && authorization.toLowerCase().startsWith("bearer")) {

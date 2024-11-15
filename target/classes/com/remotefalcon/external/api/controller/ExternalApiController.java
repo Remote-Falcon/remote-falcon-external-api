@@ -1,15 +1,13 @@
 package com.remotefalcon.external.api.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.remotefalcon.external.api.aop.RequiresAccess;
+import com.remotefalcon.external.api.request.RequestVoteRequest;
+import com.remotefalcon.external.api.response.RequestVoteResponse;
 import com.remotefalcon.external.api.response.ShowResponse;
 import com.remotefalcon.external.api.service.ExternalApiService;
-import com.remotefalcon.library.documents.Show;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,7 +16,19 @@ public class ExternalApiController {
 
   @GetMapping(value = "/showDetails")
   @RequiresAccess
-  public ResponseEntity<ShowResponse> showDetails() throws IOException {
+  public ResponseEntity<ShowResponse> showDetails() {
     return this.externalApiService.showDetails();
+  }
+
+  @PostMapping(value = "/addSequenceToQueue")
+  @RequiresAccess
+  public ResponseEntity<RequestVoteResponse> addSequenceToQueue(@RequestBody RequestVoteRequest requestVoteRequest) {
+    return this.externalApiService.addSequenceToQueue(requestVoteRequest);
+  }
+
+  @PostMapping(value = "/voteForSequence")
+  @RequiresAccess
+  public ResponseEntity<RequestVoteResponse> voteForSequence(@RequestBody RequestVoteRequest requestVoteRequest) {
+    return this.externalApiService.voteForSequence(requestVoteRequest);
   }
 }

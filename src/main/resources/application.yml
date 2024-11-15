@@ -7,6 +7,8 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
 server:
+  servlet:
+    contextPath: /remote-falcon-external-api
   port: 8080
 
 info:
@@ -20,9 +22,3 @@ management:
         allowed-origins: "*"
         allowed-methods: "OPTIONS, GET, POST, PUT, DELETE"
         allowed-headers: "*"
-
-logging:
-  level:
-    org:
-      springframework:
-        graphql: OFF #Turn off logging for Spring GraphQL

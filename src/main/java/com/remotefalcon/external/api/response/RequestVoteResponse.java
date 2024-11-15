@@ -1,4 +1,4 @@
-package com.remotefalcon.external.api.model;
+package com.remotefalcon.external.api.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateWhatsPlayingRequest {
-  private String playlist;
+public class RequestVoteResponse {
+    private String message;
 }
