@@ -2,7 +2,6 @@ package com.remotefalcon.external.api.aop;
 
 import com.remotefalcon.external.api.util.AuthUtil;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
