@@ -54,17 +54,20 @@ public class ExternalApiService {
             RestTemplate restTemplate = new RestTemplate();
             requestVoteRequest.setShowSubdomain(show.get().getShowSubdomain());
             try {
-                HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
-                headers.setBearerAuth(this.authUtil.getTokenFromRequest(request));
                 HttpEntity<RequestVoteRequest> requestEntity = new HttpEntity<>(requestVoteRequest, headers);
-                return restTemplate.postForEntity(viewerApiUrl + "/addSequenceToQueue", requestEntity, RequestVoteResponse.class);
+                ResponseEntity<RequestVoteResponse> response = restTemplate.postForEntity(viewerApiUrl + "/addSequenceToQueue", requestEntity, RequestVoteResponse.class);
+                RequestVoteResponse requestVoteResponse = mapper.map(response.getBody(), RequestVoteResponse.class);
+                if(requestVoteResponse.getMessage() == null) {
+                    return ResponseEntity.status(200).body(requestVoteResponse);
+                }
+                return ResponseEntity.status(202).body(requestVoteResponse);
             }catch (HttpClientErrorException e) {
-                return ResponseEntity.status(400).body(e.getResponseBodyAs(RequestVoteResponse.class));
+                return ResponseEntity.status(500).build();
             }
         }
-        return ResponseEntity.status(400).build();
+        return ResponseEntity.status(500).build();
     }
 
     public ResponseEntity<RequestVoteResponse> voteForSequence(RequestVoteRequest requestVoteRequest) {
@@ -77,16 +80,19 @@ public class ExternalApiService {
             RestTemplate restTemplate = new RestTemplate();
             requestVoteRequest.setShowSubdomain(show.get().getShowSubdomain());
             try {
-                HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
-                headers.setBearerAuth(this.authUtil.getTokenFromRequest(request));
                 HttpEntity<RequestVoteRequest> requestEntity = new HttpEntity<>(requestVoteRequest, headers);
-                return restTemplate.postForEntity(viewerApiUrl + "/voteForSequence", requestEntity, RequestVoteResponse.class);
+                ResponseEntity<RequestVoteResponse> response = restTemplate.postForEntity(viewerApiUrl + "/voteForSequence", requestEntity, RequestVoteResponse.class);
+                RequestVoteResponse requestVoteResponse = mapper.map(response.getBody(), RequestVoteResponse.class);
+                if(requestVoteResponse.getMessage() == null) {
+                    return ResponseEntity.status(200).body(requestVoteResponse);
+                }
+                return ResponseEntity.status(202).body(requestVoteResponse);
             }catch (HttpClientErrorException e) {
-                return ResponseEntity.status(400).body(e.getResponseBodyAs(RequestVoteResponse.class));
+                return ResponseEntity.status(500).build();
             }
         }
-        return ResponseEntity.status(400).build();
+        return ResponseEntity.status(500).build();
     }
 }

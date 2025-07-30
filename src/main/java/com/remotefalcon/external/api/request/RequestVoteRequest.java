@@ -14,8 +14,6 @@ import java.time.ZonedDateTime;
 public class RequestVoteRequest {
     private Float viewerLatitude;
     private Float viewerLongitude;
-    private String timezone;
-    private ZonedDateTime date;
     private String sequence;
     private String showSubdomain;
 }
