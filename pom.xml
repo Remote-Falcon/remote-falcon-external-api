@@ -139,7 +139,7 @@
         <dependency>
             <groupId>com.github.Remote-Falcon</groupId>
             <artifactId>remote-falcon-library</artifactId>
-            <version>9cb8f5ade2</version>
+            <version>dcc2051989</version>
             <exclusions>
                 <exclusion>
                     <groupId>io.quarkus</groupId>
