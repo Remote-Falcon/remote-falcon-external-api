@@ -36,7 +36,7 @@ spec:
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: #{Env}#
-        - name: spring.data.mongodb.uri
+        - name: SPRING_DATA_MONGODB_URI
           valueFrom:
             secretKeyRef:
               name: remote-falcon-external-api
