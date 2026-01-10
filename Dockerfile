@@ -1,15 +1,13 @@
-FROM maven:3-openjdk-17-slim AS build
-COPY src /usr/src/app/src
-COPY pom.xml /usr/src/app
-RUN mvn -f /usr/src/app/pom.xml clean package
+FROM ghcr.io/graalvm/native-image-community:21 AS build
+WORKDIR /usr/src/app
+RUN microdnf install -y maven && microdnf clean all
+COPY pom.xml .
+COPY src ./src
+RUN mvn -Pnative -DskipTests package
 
-FROM eclipse-temurin:17-jre-jammy
-COPY --from=build /usr/src/app/target/remote-falcon-external-api.jar /usr/app/remote-falcon-external-api.jar
+FROM registry.access.redhat.com/ubi9/ubi-minimal:9.2
+WORKDIR /usr/app
+RUN microdnf install -y zlib && microdnf clean all
+COPY --from=build /usr/src/app/target/remote-falcon-external-api /usr/app/remote-falcon-external-api
 EXPOSE 8080
-
-ARG OTEL_OPTS
-ENV OTEL_OPTS=${OTEL_OPTS}
-
-ADD 'https://dtdg.co/latest-java-tracer' /usr/app/dd-java-agent.jar
-
-ENTRYPOINT exec java $JAVA_OPTS $OTEL_OPTS -XX:FlightRecorderOptions=stackdepth=256 -jar /usr/app/remote-falcon-external-api.jar
+ENTRYPOINT ["/usr/app/remote-falcon-external-api"]

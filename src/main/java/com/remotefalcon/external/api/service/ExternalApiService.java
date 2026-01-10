@@ -6,7 +6,6 @@ import com.remotefalcon.external.api.response.ShowResponse;
 import com.remotefalcon.library.documents.Show;
 import com.remotefalcon.external.api.repository.ShowRepository;
 import com.remotefalcon.external.api.util.AuthUtil;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dozer.DozerBeanMapper;
@@ -15,8 +14,6 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.*;
 

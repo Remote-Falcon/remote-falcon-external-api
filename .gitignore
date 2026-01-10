@@ -50,3 +50,5 @@ yarn-error.log*
 .env
 /target
 .qodana
+
+env.properties
